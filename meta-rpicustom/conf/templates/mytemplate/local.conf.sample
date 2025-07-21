@@ -1,0 +1,38 @@
+MACHINE = "raspberrypi5"
+DISTRO = "poky"
+DISTRO_FEATURES:append = " wayland x11"
+
+ENABLE_VC4GRAPHICS = "1"
+EXTRA_IMAGE_FEATURES += "\
+    empty-root-password \
+    allow-empty-password \
+    allow-root-login \
+    ssh-server-dropbear"
+
+# Enable VC4 graphics driver with KMS
+ENABLE_VC4GRAPHICS = "1"
+VC4DTBO = "vc4-kms-v3d"
+
+# VC4 configurations
+DISABLE_VC4DTBO = "0"
+GPU_MEM = "128"
+DISABLE_OVERSCAN = "1"
+
+# Enable hardware acceleration features - already included in DISTRO_FEATURES above
+MACHINE_FEATURES:append = " vc4graphics"
+
+# Boot configuration
+RPI_USE_U_BOOT = "0"
+BOOT_DELAY = "0"
+
+# Hardware interfaces
+ENABLE_UART = "1"
+ENABLE_I2C = "1"
+ENABLE_SPI_BUS = "1"
+
+# License acceptance
+LICENSE_FLAGS_ACCEPTED = "commercial synaptics-killswitch"
+
+# SPDX generation (disabled for faster builds)
+BB_GENERATE_SPDX = "0"
+BB_GENERATE_SPDX:forcevariable = "0"

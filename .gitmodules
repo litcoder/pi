@@ -1,0 +1,19 @@
+[submodule "poky"]
+	path = poky
+	url = git://git.yoctoproject.org/poky
+	branch = scarthgap
+[submodule "meta-raspberrypi"]
+	path = meta-raspberrypi
+	url = https://github.com/agherzan/meta-raspberrypi
+	branch = scarthgap
+[submodule "meta-openembedded"]
+	path = meta-openembedded
+	url = https://git.openembedded.org/meta-openembedded
+	branch = scarthgap
+[submodule "meta-ros"]
+	path = meta-ros
+	url = https://github.com/ros/meta-ros.git
+	branch = scarthgap
+[submodule "meta-qt6"]
+	path = meta-qt6
+	url = git://code.qt.io/yocto/meta-qt6.git
