@@ -1,6 +1,14 @@
 MACHINE = "raspberrypi5"
 DISTRO = "poky"
-DISTRO_FEATURES:append = " wayland x11"
+DISTRO_FEATURES:append = " wayland x11 systemd usrmerge pam"
+DISTRO_FEATURES:remove = " sysvinit"
+
+# Set systemd as init manager
+VIRTUAL-RUNTIME_init_manager = "systemd"
+VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
+
+# Add weston-config package to image
+IMAGE_INSTALL:append = " weston-config"
 
 ENABLE_VC4GRAPHICS = "1"
 EXTRA_IMAGE_FEATURES += "\
@@ -12,6 +20,10 @@ EXTRA_IMAGE_FEATURES += "\
 # Enable VC4 graphics driver with KMS
 ENABLE_VC4GRAPHICS = "1"
 VC4DTBO = "vc4-kms-v3d"
+
+# Weston stability configuration for RPi5
+PACKAGECONFIG:append:pn-weston = " systemd xwayland"
+PACKAGECONFIG:remove:pn-weston = " vaapi"
 
 # VC4 configurations
 DISABLE_VC4DTBO = "0"
