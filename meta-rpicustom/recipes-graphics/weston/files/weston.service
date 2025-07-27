@@ -2,12 +2,14 @@
 Description=Weston Wayland Compositor
 RequiresMountsFor=/run
 Conflicts=getty@tty1.service xorg.service lightdm.service gdm.service sddm.service
-After=systemd-user-sessions.service getty@tty1.service plymouth-quit.service multi-user.target
+After=systemd-user-sessions.service getty@tty1.service plymouth-quit.service multi-user.target graphical-session-pre.target
 Before=graphical.target
 Wants=multi-user.target
+# Don't require framebuffer device since we're using DRM
+# Requires=sys-devices-platform-gpu-graphics-fb0.device
 
 [Service]
-Type=notify
+Type=simple
 ExecStart=/usr/bin/weston --log=/var/log/weston.log --idle-time=0
 User=root
 Group=root
@@ -29,8 +31,11 @@ Environment=WESTON_LOG_VERBOSITY=1
 ExecStartPre=/bin/mkdir -p /run/user/0
 ExecStartPre=/bin/chmod 0700 /run/user/0
 
-# Wait a bit before starting to ensure system is ready
-ExecStartPre=/bin/sleep 2
+# Wait for DRM devices to be ready instead of framebuffer
+ExecStartPre=/bin/sh -c 'for i in $(seq 1 30); do [ -e /dev/dri/card0 ] && break || sleep 1; done'
+
+# Wait a bit more before starting to ensure system is ready
+ExecStartPre=/bin/sleep 3
 
 StandardOutput=journal
 StandardError=journal
@@ -41,9 +46,11 @@ TTYVTDisallocate=yes
 KillMode=mixed
 KillSignal=SIGTERM
 TimeoutStopSec=10s
-TimeoutStartSec=30s
-Restart=always
+TimeoutStartSec=60s
+Restart=on-failure
 RestartSec=5s
+StartLimitInterval=300s
+StartLimitBurst=3
 
 [Install]
 WantedBy=graphical.target

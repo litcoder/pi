@@ -8,7 +8,7 @@ VIRTUAL-RUNTIME_init_manager = "systemd"
 VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
 
 # Add weston-config package to image
-IMAGE_INSTALL:append = " weston-config"
+IMAGE_INSTALL:append = " weston-config adwaita-icon-theme"
 
 ENABLE_VC4GRAPHICS = "1"
 EXTRA_IMAGE_FEATURES += "\
@@ -21,14 +21,18 @@ EXTRA_IMAGE_FEATURES += "\
 ENABLE_VC4GRAPHICS = "1"
 VC4DTBO = "vc4-kms-v3d"
 
-# Weston stability configuration for RPi5
-PACKAGECONFIG:append:pn-weston = " systemd xwayland"
-PACKAGECONFIG:remove:pn-weston = " vaapi"
-
 # VC4 configurations
 DISABLE_VC4DTBO = "0"
 GPU_MEM = "128"
+ENABLE_VC4FKMS = "0"
 DISABLE_OVERSCAN = "1"
+
+# Weston stability configuration for RPi5
+PACKAGECONFIG:append:pn-weston = " systemd xwayland"
+PACKAGECONFIG:remove:pn-weston = " vaapi fbdev"
+
+# Disable splash screen to prevent framebuffer conflicts
+ENABLE_SPLASH = "0"
 
 # Enable hardware acceleration features - already included in DISTRO_FEATURES above
 MACHINE_FEATURES:append = " vc4graphics"
