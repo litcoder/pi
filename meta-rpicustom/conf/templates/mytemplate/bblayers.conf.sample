@@ -9,7 +9,10 @@ BBFILES ?= ""
 BBLAYERS ?= " \
   ${TOPDIR}/../poky/meta \
   ${TOPDIR}/../poky/meta-poky \
+  ${TOPDIR}/../poky/meta-yocto-bsp \
   ${TOPDIR}/../meta-openembedded/meta-oe \
+  ${TOPDIR}/../meta-openembedded/meta-python \
   ${TOPDIR}/../meta-raspberrypi \
   ${TOPDIR}/../meta-rpicustom \
+  ${TOPDIR}/../meta-qt6 \
   "

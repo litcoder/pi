@@ -8,7 +8,7 @@ VIRTUAL-RUNTIME_init_manager = "systemd"
 VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
 
 # Add weston-config package to image
-IMAGE_INSTALL:append = " weston-config adwaita-icon-theme"
+IMAGE_INSTALL:append = " weston-config adwaita-icon-theme mole"
 
 ENABLE_VC4GRAPHICS = "1"
 EXTRA_IMAGE_FEATURES += "\
