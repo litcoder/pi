@@ -16,7 +16,7 @@ git clone git@github.com:litcoder/reaction.git
 git submodule update --init --recursive
 
 # Build yocto
-export TEMPLATECONF=${PWD}/meta-reaction-game/conf/templates/mytemplate
+export TEMPLATECONF=${PWD}/meta-rpicustom/conf/templates/mytemplate
 source ./poky/oe-init-build-env build
 bitbake reaction-game-image
 ```
